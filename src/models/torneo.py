@@ -1,7 +1,7 @@
 from models.partido import Partido
 from herramientas.excepciones import cantidadEquiposError
 import uuid
-
+#
 class Torneo:
     def __init__(self, id_torneo, nombre):
         self._id = id_torneo
