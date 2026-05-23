@@ -12,3 +12,4 @@ class partido:
  parte de get
 
  def get_equipo_local(self):
+    return self._equipo_local
