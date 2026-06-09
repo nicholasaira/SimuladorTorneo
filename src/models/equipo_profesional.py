@@ -27,10 +27,19 @@ class EquipoProfesional(Equipo):
         self._validar_rango(nivel_entrenamiento,0,100,nivelEntrenamientoError())
         self._nivel_entrenamiento = nivel_entrenamiento
 
-    #Calcula la potencia en base a sus atributos y un factor suerte entre 1 y 20
+    #Calcula la potencia en base a sus atributos y un factor suerte entre un 10% que afecta por encima o por debajo de su potencia
     def calcular_potencia(self):
-        potencia = (self._ataque+self._defensa+self._resistencia+self._nivel_entrenamiento+(100-self._ranking)+random.randint(1,20))
-        return potencia
+
+        potencia_base = (
+            self._ataque * 0.30 +
+            self._defensa * 0.25 +
+            self._resistencia * 0.20 +
+            self._nivel_entrenamiento * 0.25
+        )
+
+        factor = random.uniform(0.9, 1.1)
+
+        return potencia_base * factor
     
     #Metodo para aumentar ataque,defensa y nivel de entrenamiento (el maximo es 100)
     def entrenar(self):

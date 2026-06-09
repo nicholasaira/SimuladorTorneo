@@ -19,4 +19,96 @@ class Equipo(ABC):
         self._derrotas = 0
         self._goles_favor = 0
         self._goles_contra = 0
-        self._puntos_totales = 0
+
+    #Metodo privado que valida las entradas para lanzar la excepcion
+    def _validar_rango(self,valor, minimo, maximo, excepcion):
+        if (valor < minimo or valor > maximo):
+            raise excepcion
+        
+    #Metodo privado que valida el nombre del equipo
+    def _validar_nombre(self,nombre,excepcion):
+        if nombre.strip() == "":
+            raise excepcion
+
+    #Metodo que se encarga de calcular la potencia de un equipo
+    @abstractmethod
+    def calcular_potencia(self):
+        pass
+
+    #Metodo para setear el ataque
+    def setAtaque(self,ataque):
+        self._validar_rango(ataque,0,100,ataqueError())
+        self._ataque = ataque
+
+    #Metodo para setear la defensa
+    def setDefensa(self,defensa):
+        self._validar_rango(defensa,0,100,defensaError())
+        self._defensa = defensa
+
+    #Metodo para setear la resistencia
+    def setResistencia(self, resistencia):
+        self._validar_rango(resistencia,0,100,resistenciaError())
+        self._resistencia = resistencia
+
+    #Metodo para aumentar las victorias del equipo
+    def guardar_victoria(self):
+        self._victorias+=1
+
+    #Metodo que muestra los stats del equipo
+    def mostrar_estadisticas(self):
+        print("Equipo: ",self._nombre)
+        print("Victorias: ",self._victorias)
+        print("Empates: ",self._empates)
+        print("Derrotas: ",self._derrotas)
+        print("Goles a favor: ",self._goles_favor)
+        print("Goles en contra: ",self._goles_contra)
+
+    #Metodo para aumentar y guardar la cantidad de empates en 1
+    def guardar_empate(self):
+        self._empates += 1
+    #Metodo para aumentar y guardar la cantidad de derrotas en 1
+    def guardar_derrota(self):
+        self._derrotas += 1
+    #Metodo para aumentar y guardar la cantidad de goles a favor en 1
+    def agregar_goles_favor(self, goles):
+        self._goles_favor += goles
+    #Metodo para aumentar y guardar la cantidad de goles en contra en 1
+    def agregar_goles_contra(self, goles):
+        self._goles_contra += goles
+
+    # Getters
+    def get_nombre(self):
+        return self._nombre
+
+    def get_victorias(self):
+        return self._victorias
+
+    def get_empates(self):
+        return self._empates
+
+    def get_derrotas(self):
+        return self._derrotas
+    
+    def get_partidos_jugados(self):
+        return self._victorias+self._derrotas+self._empates
+
+    def get_goles_favor(self):
+        return self._goles_favor
+
+    def get_goles_contra(self):
+        return self._goles_contra
+
+    def get_puntos(self):
+        return self._victorias * 3 + self._empates
+
+    def get_diferencia_gol(self):
+        return self._goles_favor - self._goles_contra
+    
+    def __str__(self):
+        return (
+            f"{self._nombre} | "
+            f"Ranking: {self._ranking} | "
+            f"Ataque: {self._ataque} | "
+            f"Defensa: {self._defensa} | "
+            f"Resistencia: {self._resistencia}"
+        )

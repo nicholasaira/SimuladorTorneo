@@ -1,6 +1,6 @@
+from herramientas.excepciones import *
 from models.equipo_profesional import EquipoProfesional
 from models.equipo_amateur import EquipoAmateur
-from herramientas.excepciones import *
 
 class Pruebas:
     @staticmethod

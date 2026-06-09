@@ -37,3 +37,8 @@ class nombreEquipoError(Exception):
 class cantidadEquiposError(Exception):
     def __init__(self, mensaje="La cantidad de equipos debe ser mayor a 1 y par"):
         super().__init__(mensaje)
+
+# Lanza error si la API no encuentra resultados
+class errorApi(Exception):
+    def __init__(self, mensaje="La api no devolvio resultados"):
+        super().__init__(mensaje)

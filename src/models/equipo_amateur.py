@@ -27,10 +27,19 @@ class EquipoAmateur(Equipo):
         self._validar_rango(estado_fisico,0,100,estadoFisicoError())
         self._estado_fisico = estado_fisico
 
-    #Calcula la potencia en base a sus atributos y un factor suerte entre 1 y 15
+    #Calcula la potencia en base a sus atributos y un factor suerte que afecta entre 20% por arriba o por abajo de su potencia
     def calcular_potencia(self):
-        potencia = (self._ataque+self._defensa+self._resistencia+self._estado_fisico+(100-self._ranking)+random.randint(1,15))
-        return potencia
+
+        potencia_base = (
+            self._ataque * 0.25 +
+            self._defensa * 0.20 +
+            self._resistencia * 0.20 +
+            self._estado_fisico * 0.35
+        )
+
+        factor = random.uniform(0.8, 1.2)
+
+        return potencia_base * factor
     
     #Aumenta el estado fisico en 10, el estado maximo es 100
     def recuperar_fisico(self):
