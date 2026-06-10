@@ -14,7 +14,7 @@ def main():
 
     api = ApiFootball(API_KEY)
 
-    #Recojo los datos de la liga argentina temporada 2016
+    #Recojo los datos de la liga argentina temporada 2022
     datos = api.obtener_datos_equipos(
         liga=128,
         temporada=2022

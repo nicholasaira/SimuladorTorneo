@@ -1,5 +1,6 @@
 from models.partido import Partido
 from herramientas.excepciones import cantidadEquiposError
+from herramientas.decoradores import medir_tiempo
 import uuid
 import csv
 
@@ -8,7 +9,6 @@ class Torneo:
         self._id = id_torneo
         self._nombre = nombre
         self._equipos = []
-        self._partidos = []
         self._fechas = []
         self._campeon = None
 
@@ -19,10 +19,6 @@ class Torneo:
     @property
     def get_equipos(self):
         return self._equipos
-
-    @property
-    def get_partidos(self):
-        return self._partidos
     
     @property
     def get_fechas(self):
@@ -32,6 +28,7 @@ class Torneo:
         self._equipos.append(equipo)
 
     #Metodo que genera las fechas del torneo
+    @medir_tiempo
     def generar_fechas(self):
 
         #mas de dos equipos
@@ -63,12 +60,7 @@ class Torneo:
                 + [equipos[-1]]
                 + equipos[1:-1]
             )
-    #Metodo para iniciar el torneo
-    def iniciar_torneo(self):
-        print("\nTorneo:", self._nombre)
-        for partido in self._partidos:
-            partido.jugar_partido()
-            partido.mostrar_resultado()
+
     #Metodo que devuelve la tabla de resultados ordenada por puntos, diferencia de gol y goles a favor
     def mostrar_tabla(self):
         tabla = sorted(self._equipos,key=lambda e: (e.get_puntos(),e.get_diferencia_gol(),e.get_goles_favor()),reverse=True)
@@ -86,6 +78,8 @@ class Torneo:
     def obtener_campeon(self):
         return max(self._equipos,key=lambda e: (e.get_puntos(),e.get_diferencia_gol(),e.get_goles_favor()))
     
+    #Metodo que guarda la tabla de resultados en un archivo csv 
+    @medir_tiempo
     def guardar_tabla_csv(self, archivo_csv):
         tabla = sorted(self._equipos,key=lambda e: (e.get_puntos(),e.get_diferencia_gol(),e.get_goles_favor()),reverse=True)
         with open(archivo_csv,"w",newline="",encoding="utf-8") as archivo:

@@ -1,3 +1,4 @@
+from herramientas.decoradores import medir_tiempo
 import threading
 import time
 
@@ -21,6 +22,7 @@ class Simulador:
         self._resultados.clear()
     
     #Metodo que realiza la simulacion del partido
+    @medir_tiempo
     def simular_partido(self, partido):
 
         print(
@@ -40,6 +42,7 @@ class Simulador:
             f"Finalizado {partido}"
         )
 
+    @medir_tiempo
     def ejecutar_fecha(self, fecha):
 
         self._threads = []
