@@ -5,9 +5,16 @@ from models.equipo_profesional import EquipoProfesional
 from models.equipo_amateur import EquipoAmateur
 from herramientas.apiFootball import ApiFootball
 from logica.simulador import Simulador
+from herramientas.excepciones import (errorApiKey)
+
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 
-API_KEY = "59ae5be1a5111dbdfd842ec8e6e2c473"
+API_KEY = os.getenv("API_FOOTBALL_KEY")
+if not API_KEY:
+    raise errorApiKey()
 
 
 def main():

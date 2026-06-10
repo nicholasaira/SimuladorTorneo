@@ -42,3 +42,8 @@ class cantidadEquiposError(Exception):
 class errorApi(Exception):
     def __init__(self, mensaje="La api no devolvio resultados"):
         super().__init__(mensaje)
+
+# Lanza error si no se encuentra una api key
+class errorApiKey(Exception):
+    def __init__(self, mensaje="No se encontró la variable API_FOOTBALL_KEY. Verifique el archivo .env"):
+        super().__init__(mensaje)

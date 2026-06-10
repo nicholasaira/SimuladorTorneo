@@ -1,6 +1,4 @@
 import requests
-from models.equipo_profesional import EquipoProfesional
-from models.equipo_amateur import EquipoAmateur
 from herramientas.excepciones import errorApi
 
 class ApiFootball:
